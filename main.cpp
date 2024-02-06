@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <Windows.h>
 
 using namespace std;
 
@@ -135,7 +136,10 @@ public:
     }
 };
 
-int main() {
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     railway_station station;
     station.start();
     return 0;
