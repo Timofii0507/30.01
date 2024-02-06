@@ -3,7 +3,6 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
-#include <Windows.h>
 
 using namespace std;
 
@@ -89,7 +88,7 @@ public:
     void load_from_file() {
         ifstream file("trains.txt");
         if (file.is_open()) {
-            station.clear(); 
+            station.clear();
             string departure, arrival;
             int train_number, ticket_price;
 
@@ -100,45 +99,44 @@ public:
             file.close();
         }
     }
+
+    void start() {
+        int choice;
+        do
+        {
+            cout << "1. Ввести дані про поїзд" << endl;
+            cout << "2. Вивести дані про всі поїзди" << endl;
+            cout << "3. Вивести дані про запитуваний поїзд" << endl;
+            cout << "4. Вийти" << endl;
+            cin >> choice;
+
+            switch (choice)
+            {
+            case 1:
+                add_train();
+                break;
+            case 2:
+                print_all_trains();
+                break;
+            case 3:
+                int train_number;
+                cout << "" << endl;
+                cout << "Введіть номер потяга: ";
+                cin >> train_number;
+                search_train(train_number);
+                break;
+            case 4:
+                save_to_file();
+                return;
+            default:
+                break;
+            }
+        } while (choice != 4);
+    }
 };
 
-int main()
-{
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+int main() {
     railway_station station;
-
-    int choice;
-    do
-    {
-        cout << "1. Ввести дані про поїзд" << endl;
-        cout << "2. Вивести дані про всі поїзди" << endl;
-        cout << "3. Вивести дані про запитуваний поїзд" << endl;
-        cout << "4. Вийти" << endl;
-        cin >> choice;
-
-        switch (choice)
-        {
-        case 1:
-            station.add_train();
-            break;
-        case 2:
-            station.print_all_trains();
-            break;
-        case 3:
-            int train_number;
-            cout << "" << endl;
-            cout << "Введіть номер потяга: ";
-            cin >> train_number;
-            station.search_train(train_number);
-            break;
-        case 4:
-            station.save_to_file();
-            return 0;
-        default:
-            break;
-        }
-    } while (choice != 4);
-
+    station.start();
     return 0;
 }
